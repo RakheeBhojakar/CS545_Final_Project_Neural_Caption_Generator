@@ -15,3 +15,4 @@ Reference:
 4. https://machinelearningmastery.com/develop-a-deep-learning-caption-generation-model-in-python/
 5. http://nlp.cs.illinois.edu/HockenmaierGroup/Framing_Image_Description/KCCA.html
 
+Note: Files have redundant functions, need to clean.
