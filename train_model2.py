@@ -106,7 +106,7 @@ def create_sequences(tokenizer, max_length, desc_list, photo):
 			y.append(out_seq)
 	return array(X1), array(X2), array(y)
 
-# define the captioning model 2
+# define the captioning model2
 def define_model(vocab_size, max_length):
 	# feature extractor model
 	inputs1 = Input(shape=(4096,))
