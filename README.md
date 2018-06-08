@@ -2,10 +2,10 @@
 Model 1 (Inject Architecture)(Show and Tell paper architecture) yet to upload(still running).
 Model 2 (Merge Architecture)(For comparison from reference 2) complete.
 
-Numbre of epochs: 20
-Dataset: Flickr 8k
-CNN: VGG16 Model
-RNN: LSTM Cells
+Numbre of epochs: 20,
+Dataset: Flickr 8k,
+CNN: VGG16 Model,
+RNN: LSTM Cells,
 
 
 Reference:
