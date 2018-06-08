@@ -24,3 +24,6 @@ Sample Results Obtained:
 
 ![capture1](https://user-images.githubusercontent.com/19959542/41163810-9037ce12-6aee-11e8-85cc-40e10e941b75.PNG)
 ![capture](https://user-images.githubusercontent.com/19959542/41163816-948d28a4-6aee-11e8-9b39-f98f8829529e.PNG)
+
+![capture1](https://user-images.githubusercontent.com/19959542/41163994-f3098526-6aee-11e8-837c-5a91436d83c3.PNG)
+![capture](https://user-images.githubusercontent.com/19959542/41164001-f6aa9990-6aee-11e8-897a-a416247ad0c5.PNG)
