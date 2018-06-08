@@ -19,5 +19,5 @@ Note: Files have redundant functions, need to clean.
 
 Sample Results Obtained:
 
-![capture1](https://user-images.githubusercontent.com/19959542/41163249-028f2dea-6aed-11e8-87c6-e82d46cd064f.PNG)
-
+![capture1](https://user-images.githubusercontent.com/19959542/41163613-0490215c-6aee-11e8-950f-1750dd6c2c37.PNG)
+![capture](https://user-images.githubusercontent.com/19959542/41163634-1061d638-6aee-11e8-8dbb-6fc9096a05bd.PNG)
