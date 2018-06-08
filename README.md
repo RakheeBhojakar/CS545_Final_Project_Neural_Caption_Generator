@@ -16,3 +16,8 @@ Reference:
 5. http://nlp.cs.illinois.edu/HockenmaierGroup/Framing_Image_Description/KCCA.html
 
 Note: Files have redundant functions, need to clean.
+
+Sample Results Obtained:
+
+![capture1](https://user-images.githubusercontent.com/19959542/41163249-028f2dea-6aed-11e8-87c6-e82d46cd064f.PNG)
+
