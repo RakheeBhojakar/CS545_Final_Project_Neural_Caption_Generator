@@ -8,7 +8,7 @@ CNN: VGG16 Model,
 RNN: LSTM Cells,
 
 
-Reference:
+References:
 1. Show and Tell: A Neural Image Caption Generator
 2. What is the Role of Recurrent Neural Networks (RNNs) in an Image Caption Generator?
 3. https://machinelearningmastery.com/develop-a-caption-generation-model-in-keras/
