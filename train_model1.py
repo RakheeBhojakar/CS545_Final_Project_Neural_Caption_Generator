@@ -1,17 +1,27 @@
 from numpy import array
+from numpy import argmax
+from pandas import DataFrame
+from nltk.translate.bleu_score import corpus_bleu
 from pickle import load
+ 
 from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
 from keras.utils import to_categorical
+from keras.preprocessing.image import load_img
+from keras.preprocessing.image import img_to_array
+from keras.applications.vgg16 import preprocess_input
+from keras.applications.vgg16 import VGG16
 from keras.utils import plot_model
 from keras.models import Model
 from keras.layers import Input
 from keras.layers import Dense
+from keras.layers import Flatten
 from keras.layers import LSTM
+from keras.layers import RepeatVector
+from keras.layers import TimeDistributed
 from keras.layers import Embedding
-from keras.layers import Dropout
-from keras.layers.merge import add
-from keras.callbacks import ModelCheckpoint
+from keras.layers.merge import concatenate
+from keras.layers.pooling import GlobalMaxPooling2D
 
 # load doc into memory
 def load_doc(filename):
@@ -106,28 +116,29 @@ def create_sequences(tokenizer, max_length, desc_list, photo):
 			y.append(out_seq)
 	return array(X1), array(X2), array(y)
 
-# define the captioning model
+# define the captioning model1
 def define_model(vocab_size, max_length):
-	# feature extractor model
+	# feature extractor (encoder)
 	inputs1 = Input(shape=(4096,))
-	fe1 = Dropout(0.5)(inputs1)
-	fe2 = Dense(256, activation='relu')(fe1)
-	# sequence model
+	#fe1 = GlobalMaxPooling2D()(inputs1)
+	fe2 = Dense(256, activation='relu')(inputs1)
+	fe3 = RepeatVector(max_length)(fe2)
+	# embedding
 	inputs2 = Input(shape=(max_length,))
-	se1 = Embedding(vocab_size, 256, mask_zero=True)(inputs2)
-	se2 = Dropout(0.5)(se1)
-	se3 = LSTM(256)(se2)
-	# decoder model
-	decoder1 = add([fe2, se3])
-	decoder2 = Dense(256, activation='relu')(decoder1)
-	outputs = Dense(vocab_size, activation='softmax')(decoder2)
+	emb2 = Embedding(vocab_size, 256, mask_zero=True)(inputs2)
+	emb3 = LSTM(256, return_sequences=True)(emb2)
+	emb4 = TimeDistributed(Dense(256, activation='relu'))(emb3)
+	# merge inputs
+	merged = concatenate([fe3, emb4])
+	# language model (decoder)
+	lm2 = LSTM(256)(merged)
+	lm3 = Dense(256, activation='relu')(lm2)
+	outputs = Dense(vocab_size, activation='softmax')(lm3)
 	# tie it together [image, seq] [word]
 	model = Model(inputs=[inputs1, inputs2], outputs=outputs)
-	# compile model
-	model.compile(loss='categorical_crossentropy', optimizer='adam')
-	# summarize model
-	model.summary()
-	#plot_model(model, to_file='model.png', show_shapes=True)
+	model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+	print(model.summary())
+	#plot_model(model, show_shapes=True, to_file='plot.png')
 	return model
 
 # data generator, intended to be used in a call to model.fit_generator()
@@ -145,7 +156,7 @@ filename = 'Flickr8k_text/Flickr_8k.trainImages.txt'
 train = load_set(filename)
 print('Dataset: %d' % len(train))
 # descriptions
-train_descriptions = load_clean_descriptions('descriptions.txt', train)
+train_descriptions = load_clean_descriptions('descriptions_1.txt', train)
 print('Descriptions: train=%d' % len(train_descriptions))
 # photo features
 train_features = load_photo_features('features_2.pkl', train)
@@ -169,4 +180,4 @@ for i in range(epochs):
 	# fit for one epoch
 	model.fit_generator(generator, epochs=1, steps_per_epoch=steps, verbose=1)
 	# save model
-	model.save('model_' + str(i) + '.h5')
+	model.save('model1_' + str(i) + '.h5')
